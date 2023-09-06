@@ -1,4 +1,4 @@
-﻿Console.WriteLine("Задача 52. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.");
+﻿Console.WriteLine("Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.");
 
 
 Console.Write("Введите первую размерность массива:");
@@ -7,7 +7,7 @@ Console.Write("Введите вторую размерность массива
 int j=Convert.ToInt32(Console.ReadLine());
 
 int [,] matrix=new int [i,j];
-
+//формируем массиы
 Console.WriteLine("Сформированный массив:");
 for(i=0; i<matrix.GetLength(0); i++)
 {
@@ -20,16 +20,33 @@ for(i=0; i<matrix.GetLength(0); i++)
     Console.WriteLine();
 }
 
-float summ;
-Console.Write("Среднее арифметическое каждого столбца:");
-for(i=0; i<matrix.GetLength(1); i++)
+//сортируем строки массива
+for(i=0; i<matrix.GetLength(0); i++)
 {
-  summ=0;
-    for(j=0; j<matrix.GetLength(0); j++)
+  
+    for(j=0; j<matrix.GetLength(1); j++)
     {
-    summ=summ+matrix[j,i];
+      for(int k=j+1; k<matrix.GetLength(1); k++)
+      if(matrix[i,k]>matrix[i,j])
+      {
+       matrix[i,j]=matrix[i,j]+matrix[i,k];
+       matrix[i,k]=matrix[i,j]-matrix[i,k];
+       matrix[i,j]=matrix[i,j]-matrix[i,k];
+      }
+    
     
     }
-   Console.Write("{0:f1} ", summ/matrix.GetLength(1));
+   
 }
+//Выводим упорядоченный массив
+Console.WriteLine("Упорядоченный массив:");
+for(i=0; i<matrix.GetLength(0); i++)
+{
+  for(j=0; j<matrix.GetLength(1); j++)
+    {
+     Console.Write("{0:D2} ", matrix[i,j]);
+    }
+    Console.WriteLine();
+}
+
 Console.WriteLine();
